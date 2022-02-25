@@ -28,8 +28,8 @@ def img_convert(request: HttpRequest, cvrt_request: ImgCvrtRequest = Form(...), 
     # 이미지 변환 적용 및 s3 업로드 후, url을 return 해주는 서비스 함수
     # cvrt_request.image_name엔 이미지명, img엔 이미지 파일이 있으며, 이를 인자로 넘겨줌
     file_url = img_style_convert_apply(cvrt_request.image_name, cvrt_request.model_type, image)
+    print(request)
     print(file_url)
 
-    # QuerySet 타입을 json으로 넘길 수 있도록 안의 값을 빼서 리스트화.
     context = {'stylized_image_url': file_url}
     return HttpResponse(json.dumps(context), content_type='application/json')

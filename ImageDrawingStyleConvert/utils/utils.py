@@ -66,7 +66,7 @@ def upload_tensor_img(bucket, tensor, img_nm, drawing_style, conditional_number)
     buffer.seek(0)  # 0번째 포인터위치부터 파일을 읽으라는 뜻
 
     # 파일명에 붙일 현재날짜 및 시간
-    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    current_time = datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
     # 업로드 할 파일명
     upload_filename = f'{current_time}_{img_nm}({drawing_style}).png'
     # ImageDrawingStyleConvert app의 apps.py의 ImagedrawingstyleconvertConfig 클래스의 s3 객체에 해당 오브젝트를 집어넣음.
