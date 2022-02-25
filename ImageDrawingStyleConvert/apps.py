@@ -11,6 +11,5 @@ class ImagedrawingstyleconvertConfig(AppConfig):
     hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
     # s3 관련 코드
     # secret 으로 빼놓고 해당 파일은 .gitignore를 해도 좋지만, github 레포를 그냥 private 으로 설정하는 것을 추천 (배포 과정이 더 간단해짐)
-    # s3 = boto3.client('s3', aws_access_key_id='AKIA44BSPAIR7QQTW77G',
-    #                   aws_secret_access_key='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', region_name='ap-northeast-2')
+    # my_apps.py에 작성되어 있으며, .gitignore에 작성되어있음.
     s3 = s3_settings

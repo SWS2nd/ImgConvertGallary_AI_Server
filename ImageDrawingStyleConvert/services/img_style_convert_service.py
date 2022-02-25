@@ -97,6 +97,7 @@ def img_style_convert_apply(image_name: str, model_type: str, image: UploadedFil
         # 스타일도 위처럼 읽어와도 되지만, 스타일은 비율이 유지되어야만 올바르게 적용됨
         # 스타일 비율도 일괄적으로 resizing 할 경우 결과가 이상할 수 있음에 유의
         # 두번째 인자는 이미지의 최대 크기를 제한하고자 하는 길이
+        # util성 함수들은 utils app에서 관리
         style_image = load_style(style_path, 512)
 
         # 2) 사용자 이미지 전처리
@@ -119,6 +120,7 @@ def img_style_convert_apply(image_name: str, model_type: str, image: UploadedFil
     # 세번째 인자로 사용자로부터 받은 이미지명,
     # 네번째 인자로 이미지명에 덧붙일 drawing_style(s3에 저장시 파일명 : '현재날짜 현재시간_이미지명(drawing_style)')
     # 마지막 인자로 위쪽 if문 1, 2중 어느 if문을 탔는지(if style_route , elif style_path 중 어느 if문을 탔는지)
+    # util성 함수들은 utils app에서 관리
     stylized_image_url = upload_tensor_img('image-style-convert-bucket', stylized_image, image_name, model_type,
                                            conditional_number)
     return stylized_image_url

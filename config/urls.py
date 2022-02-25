@@ -21,7 +21,7 @@ from ImageDrawingStyleConvert.apis.v1.img_style_convert_router import router as 
 
 api = NinjaAPI()
 
-# api들을 /convert이 뒤로 배치하겠다.
+# /api/convert
 api.add_router("/convert/", cvrt_router)
 
 urlpatterns = [
