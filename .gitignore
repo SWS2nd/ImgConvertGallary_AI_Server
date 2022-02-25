@@ -1,0 +1,5 @@
+# my_settings.py(배포시 secret key, database 등등 관리용)
+config/my_settings.py
+
+# my_apps.py(배포시 s3 계정 등 관리용)
+ImageDrawingStyleConvert/my_apps.py
