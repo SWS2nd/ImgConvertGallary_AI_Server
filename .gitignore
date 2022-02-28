@@ -3,3 +3,6 @@ config/my_settings.py
 
 # my_apps.py(배포시 s3 계정 등 관리용)
 ImageDrawingStyleConvert/my_apps.py
+
+# my_apps.py(배포시 s3 계정 등 관리용)
+MixImage/my_apps.py
