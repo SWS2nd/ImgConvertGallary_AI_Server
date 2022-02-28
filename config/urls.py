@@ -18,11 +18,15 @@ from django.urls import path
 from ninja import NinjaAPI
 
 from ImageDrawingStyleConvert.apis.v1.img_style_convert_router import router as cvrt_router
+from MixImage.apis.v1.img_style_mix_router import router as mix_router
+
 
 api = NinjaAPI()
 
-# /api/convert
+# /api/convert -> ImageDrawingStyleConvert app 관련
 api.add_router("/convert/", cvrt_router)
+# /api/mix -> MixImage app 관련
+api.add_router("/mix/", mix_router)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

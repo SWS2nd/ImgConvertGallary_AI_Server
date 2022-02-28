@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = MY_SECRET['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False # 로컬에서 돌릴때 True로 수정
+DEBUG = True # 로컬에서 돌릴때 True로 수정
 
 ALLOWED_HOSTS = []
 
@@ -43,6 +43,7 @@ DJANGO_APPS = [
 # 프로젝트에서 만든 앱 관련
 PROJECT_APPS = [
     'ImageDrawingStyleConvert',
+    'MixImage',
 ]
 # 설치 라이브러리 관련
 THIRD_PARTY_APPS = [

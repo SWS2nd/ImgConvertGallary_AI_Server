@@ -48,6 +48,9 @@ def img_style_convert_apply(image_name: str, model_type: str, image: UploadedFil
         # 화풍용 이미지로 칸딘스키 이미지 파일 사용시
         style_path = tf.keras.utils.get_file('kandinsky5.jpg',
                                              'https://storage.googleapis.com/download.tensorflow.org/example_images/Vassily_Kandinsky%2C_1913_-_Composition_7.jpg')
+    elif model_type == 'your_name_animation':
+        style_path = tf.keras.utils.get_file('your_name_animation.jpg',
+                                             'https://t1.daumcdn.net/cfile/tistory/2133AC485870B74D32')
 
     # 사용자 이미지 불러오기
     img = Image.open(image.file).convert('RGB')
@@ -102,9 +105,9 @@ def img_style_convert_apply(image_name: str, model_type: str, image: UploadedFil
 
         # 2) 사용자 이미지 전처리
         # float32 타입으로 바꾸고, newaxis 를 통해 배치 차원을 추가한 후에 255 로 나눠서 normalize 함
-        # 이후 256, 256 으로 리사이즈
+        # 이후 512, 512 으로 리사이즈
         content_image_normalized = content_image.astype(np.float32)[np.newaxis, ...] / 255.
-        content_image_resized = tf.image.resize(content_image_normalized, (256, 256))
+        content_image_resized = tf.image.resize(content_image_normalized, (512, 512))
 
         # 3) 이미지 스타일 변환 모델에 리사이즈 한 사용자 이미지, 화풍용 이미지를 넣고 변환된 이미지를 돌려 받음
         # ImageDrawingStyleConvert app의 apps.py의 ImagedrawingstyleconvertConfig 클래스의 hub_module 변수 이용
@@ -121,6 +124,6 @@ def img_style_convert_apply(image_name: str, model_type: str, image: UploadedFil
     # 네번째 인자로 이미지명에 덧붙일 drawing_style(s3에 저장시 파일명 : '현재날짜 현재시간_이미지명(drawing_style)')
     # 마지막 인자로 위쪽 if문 1, 2중 어느 if문을 탔는지(if style_route , elif style_path 중 어느 if문을 탔는지)
     # util성 함수들은 utils app에서 관리
-    stylized_image_url = upload_tensor_img('image-style-convert-bucket', stylized_image, image_name, model_type,
+    stylized_image_url = upload_tensor_img('testbucket777777', stylized_image, image_name, model_type,
                                            conditional_number)
     return stylized_image_url
