@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = MY_SECRET['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # 로컬에서 돌릴때 True로 수정
+DEBUG = False # 로컬에서 돌릴때 True로 수정
 
 ALLOWED_HOSTS = []
 
