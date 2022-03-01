@@ -124,6 +124,6 @@ def img_style_convert_apply(image_name: str, model_type: str, image: UploadedFil
     # 네번째 인자로 이미지명에 덧붙일 drawing_style(s3에 저장시 파일명 : '현재날짜 현재시간_이미지명(drawing_style)')
     # 마지막 인자로 위쪽 if문 1, 2중 어느 if문을 탔는지(if style_route , elif style_path 중 어느 if문을 탔는지)
     # util성 함수들은 utils app에서 관리
-    stylized_image_url = upload_tensor_img('testbucket777777', stylized_image, image_name, model_type,
+    stylized_image_url = upload_tensor_img('image-style-convert-bucket', stylized_image, image_name, model_type,
                                            conditional_number)
     return stylized_image_url

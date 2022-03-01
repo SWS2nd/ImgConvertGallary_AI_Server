@@ -27,7 +27,8 @@ def img_style_mix_apply(image_name: str, model_image_name: str,
     # 2) 사용자 이미지 전처리
     # float32 타입으로 바꾸고, newaxis 를 통해 배치 차원을 추가한 후에 255 로 나눠서 normalize 함
     # 이후 512, 512 으로 리사이즈
-    #h, w, c = content_image.shape
+    h, w, c = content_image.shape
+    print(h, w, c)
     content_image_normalized = content_image.astype(np.float32)[np.newaxis, ...] / 255.
     content_image_resized = tf.image.resize(content_image_normalized, (512, 512))
 
@@ -57,5 +58,5 @@ def img_style_mix_apply(image_name: str, model_image_name: str,
     # 네번째 인자로 이미지명에 덧붙일 drawing_style(s3에 저장시 파일명 : '현재날짜 현재시간_이미지명(drawing_style)')
     # 마지막 인자로 위쪽 if문 1, 2중 어느 if문을 탔는지(if style_route , elif style_path 중 어느 if문을 탔는지)
     # util성 함수들은 utils app에서 관리
-    mixed_image_url = upload_tensor_img('testbucket777777', stylized_image, image_name, model_image_name)
+    mixed_image_url = upload_tensor_img('image-style-convert-bucket', stylized_image, image_name, model_image_name)
     return mixed_image_url
