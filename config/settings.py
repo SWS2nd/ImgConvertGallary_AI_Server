@@ -26,7 +26,7 @@ SECRET_KEY = MY_SECRET['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False # 로컬에서 돌릴때 True로 수정
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*'] # 모든 호스트 허용
 
 
 # Application definition
