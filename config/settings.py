@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-from .my_settings import MY_SECRET
+from .my_settings import MY_SECRET, MY_ALLOWED_HOSTS, MY_CORS_ORIGIN_WHITELIST
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = MY_SECRET['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False # 로컬에서 돌릴때 True로 수정
+DEBUG = True # 로컬에서 돌릴때 True로 수정
 
-ALLOWED_HOSTS = ['*'] # 모든 호스트 허용
+ALLOWED_HOSTS = MY_ALLOWED_HOSTS
 
 
 # Application definition
@@ -64,8 +64,7 @@ MIDDLEWARE = [
 ]
 
 # CORS 관련 추가
-CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:8000',
-                         'http://localhost:8000']
+CORS_ORIGIN_WHITELIST = MY_CORS_ORIGIN_WHITELIST
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'config.urls'

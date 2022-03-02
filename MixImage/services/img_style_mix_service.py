@@ -4,10 +4,8 @@ import tensorflow as tf
 import numpy as np
 # 이미지 처리용(Pillow)
 from PIL import Image
-# opencv
-import cv2
 # util성 함수들은 utils app에서 관리
-from MixImage.utils.utils import upload_tensor_img, load_style
+from MixImage.utils.utils import upload_tensor_img
 from MixImage.apps import ImagedrawingstylemixConfig
 
 
@@ -26,11 +24,12 @@ def img_style_mix_apply(image_name: str, model_image_name: str,
 
     # 2) 사용자 이미지 전처리
     # float32 타입으로 바꾸고, newaxis 를 통해 배치 차원을 추가한 후에 255 로 나눠서 normalize 함
-    # 이후 512, 512 으로 리사이즈
-    h, w, c = content_image.shape
-    print(h, w, c)
+    # 이후 가로 500px을 기준으로 하는 비율로 리사이즈
+    h, w, c = content_image.shape # 세로, 가로, 채널
     content_image_normalized = content_image.astype(np.float32)[np.newaxis, ...] / 255.
-    content_image_resized = tf.image.resize(content_image_normalized, (512, 512))
+    # cv2.resize()와는 가로, 세로가 반대인 것을 주의!(RGB, BGR도 다르다!)
+    content_image_resized = tf.image.resize(content_image_normalized, (int(h / w * 500), 500))
+    # print(content_image_resized.shape)
 
     # 3) 화풍용 이미지 불러오기
     model_img = Image.open(model_image.file).convert('RGB')
@@ -39,9 +38,12 @@ def img_style_mix_apply(image_name: str, model_image_name: str,
     # tf.keras.preprocessing.image.array_to_img(content_image2).show()
 
     # 4) 화풍용 이미지 전처리
-    #h, w, c = content_image.shape
+    # 이후 가로 500px을 기준으로 하는 비율로 리사이즈
+    h, w, c = model_content_image.shape # 세로, 가로, 채널
     model_image_normalized = model_content_image.astype(np.float32)[np.newaxis, ...] / 255.
-    model_image_resized = tf.image.resize(model_image_normalized, (512, 512))
+    # cv2.resize()와는 가로, 세로가 반대인 것을 주의!(RGB, BGR도 다르다!)
+    model_image_resized = tf.image.resize(model_image_normalized, (int(h / w * 500), 500))
+    # print(model_image_resized.shape)
 
     # 5) 이미지 스타일 변환 모델에 리사이즈 한 사용자 이미지, 화풍용 이미지를 넣고 변환된 이미지를 돌려 받음
     # MixImage app의 apps.py의 ImagedrawingstylemixConfig 클래스의 hub_module 변수 이용

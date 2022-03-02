@@ -1,4 +1,3 @@
-import tensorflow as tf
 import numpy as np
 # 이미지 처리용
 from PIL import Image
@@ -7,47 +6,6 @@ from io import BytesIO
 from MixImage.apps import ImagedrawingstylemixConfig
 # s3에 저장할 이미지명에 붙일 날짜, 시간용
 from datetime import datetime
-
-
-# load_style 함수는 비율을 유지하면서 스타일 이미지(화풍용 이미지) 크기를 줄이는 함수
-def load_style(path_to_style, max_dim):
-    # 이미지의 최대 크기 제한
-    # read_file()로 이미지를 읽어오고
-    # type(path_to_style), path_to_style
-    # <class 'str'> C:\Users\thddn\.keras\datasets\kandinsky5.jpg
-    #img = tf.io.read_file(path_to_style)
-    img = Image.open(path_to_style.file).convert('RGB')
-    content_image = tf.keras.preprocessing.image.array_to_img(img)
-
-    # 3채널(RGB)
-    # 그 이미지를 decode_image()를 이용해서 3차원의 텐서로 만듦
-    img = tf.image.decode_image(content_image, channels=3)
-
-    # 텐서 수치들이 실수 수치를 갖도록 변환
-    img = tf.image.convert_image_dtype(img, tf.float32)
-
-    # 전체 이미지를 비율을 유지하면서, 우리가 원하는 크기로 줄이기
-    # 200 x 200 x 3(마지막 부분 디멘션을 빼고 200 x 200(가로,세로) 만 추출)
-    # 이미지의 채널 부분 제외하고, 이미지의 가로/세로 shape 를 추출함
-    shape = tf.cast(tf.shape(img)[:-1], tf.float32)
-    # 이미지의 가로/세로 중에서 긴 부분의 길이를 추출함
-    long_dim = max(shape)
-    # 예를 들어, 200 x 400 일경우,
-    # 200(줄이고자 하는 길이) / 400 = 1 / 2
-    # 이미지의 최대 크기를 제한하기 위해서, 제한하고자 하는 길이 / 긴 부분의 길이를 구함
-    scale = max_dim / long_dim
-    # 그리고 이 scale을 이미지 가로,세로에 곱하면 되겠지!
-
-    # 이미지의 가로/세로 길이 * (제한하고자 하는 길이 / 긴 부분의 길이) 해서 축소될 길이(shape)를 구함
-    # tf.int32를 한 이유는 픽셀이므로 정수형!
-    new_shape = tf.cast(shape * scale, tf.int32)
-    # 축소될 길이를 구했으니 해당 길이대로 resize 함
-    img = tf.image.resize(img, new_shape)
-    # batch dimension 추가
-    # 이미지가(들어온 데이터가) 한개만 들어오므로 1 x
-    # 200 x 400 x 3 -> 1 x 200 x 400 x 3
-    img = img[tf.newaxis, :]
-    return img
 
 
 # upload_tensor_img 함수는 s3 bucket에 변환된 이미지와 이미지명을 업로드 하는 함수
